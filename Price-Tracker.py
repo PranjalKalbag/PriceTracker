@@ -1,13 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import smtplib
+import time
 #TURN OFF GOOGLE SECURE APPS FOR MAIL TO SEND EMAIL NOTIFICATIONS
-URL = 'https://www.amazon.in/dp/B07DJ8K2KT?pf_rd_p=fa25496c-7d42-4f20-a958-cce32020b23e&pf_rd_r=R3VSW0PQ285BR1T2SN7B'
+URL = ''
 #URL of product whose price needs to be tracked
-
+URL = input("Enter Amazon URL: ")
 headers = {"User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0"}
 #Defines type of browser. Can search for my user agent on the browser to find
-
 def check_price():
     page  = requests.get(URL, headers=headers)
 
@@ -28,7 +28,7 @@ def send_mail():
     server.ehlo()
     server.starttls()
     server.ehlo()
-    server.login('username', 'password') #change username and password as required
+    server.login('username', 'password') #change username and password
     subject = 'Price Drop ALert!'
 
     body = 'Check link: https://www.amazon.in/dp/B07DJ8K2KT?pf_rd_p=fa25496c-7d42-4f20-a958-cce32020b23e&pf_rd_r=R3VSW0PQ285BR1T2SN7B '
@@ -40,5 +40,7 @@ def send_mail():
     )
     print('Email Sent!')
     server.quit()
-
-check_price()
+while True:
+    check_price()
+    time.sleep(3600)
+    
